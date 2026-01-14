@@ -1,64 +1,12 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  # ---------------------------------------------------------------------------
-  # Database
-  # ---------------------------------------------------------------------------
-  postgres:
-    image: postgres:16-alpine
-    container_name: iframeyouu_postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-iframeyouu}
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-  # ---------------------------------------------------------------------------
-  # Backend API
-  # ---------------------------------------------------------------------------
   backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: iframeyouu_backend
-    restart: always
-    depends_on:
-      - postgres
-    environment:
-      NODE_ENV: ${NODE_ENV:-development}
-      PORT: 5000
-      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-iframeyouu}?schema=public
-      JWT_SECRET: ${JWT_SECRET:-supersecretkey}
-      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-superrefreshsecretkey}
-      FRONTEND_URL: http://localhost:3000
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-
-  # ---------------------------------------------------------------------------
-  # Frontend
-  # ---------------------------------------------------------------------------
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: iframeyouu_frontend
-    restart: always
-    environment:
-      VITE_API_URL: http://localhost:5000/api
+    image: govindhan1234/backend:latest
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    # For hot reloading in vite:
-    command: npm run dev -- --host
 
-volumes:
-  pgdata:
+  frontend:
+    image: govindhan1234/frontend:latest
+    ports:
+      - "8080:80"
