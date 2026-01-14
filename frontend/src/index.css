@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --pink-1: #fff0f5;
+  --pink-2: #ffe4e1;
+  --pink-3: #ff69b4;
+  --accent: #d63384;
+  --glass-border: rgba(214, 51, 132, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Poppins", sans-serif;
+}
+
+@theme {
+  --color-accent: var(--accent);
+  --color-pink-1: var(--pink-1);
+  --color-pink-2: var(--pink-2);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #ffffff;
+  /* Pure White */
+  color: #4a4a4a;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
+  color: var(--accent);
+  /* Pink Names/Titles */
+}
+
+@utility glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  /* Pink Border for tiles */
+  box-shadow: 0 4px 15px 0 rgba(214, 51, 132, 0.08);
+  /* Pink-ish shadow */
+  border-radius: 1rem;
+}
+
+@utility btn-primary {
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+  }
+}
+
+/* Ensure product names in cards are pink */
+.presentation-card h3 {
+  color: var(--accent);
+}

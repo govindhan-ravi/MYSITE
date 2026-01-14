@@ -1,0 +1,28 @@
+---
+- name: Deploy I FRAME YOUU Stack
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Copy project files
+      copy:
+        src: ./
+        dest: /opt/iframeyouu/
+
+    - name: Start services with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /opt/iframeyouu/
